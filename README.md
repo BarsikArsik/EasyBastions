@@ -16,7 +16,7 @@ A module for Foundry VTT that allows you to build a bastion in DND2024 using a n
 Я сделал этот модуль из любви к НРИ в свободное от работы время и рад распространять его бесплатно, но буду благодарен за поддержку, чтобы развивать его дальше. 
 Поддержать меня можно на [boosty ](arsgalimovfvtt.com) или [Patreon](arsgalimovfvtt.com). 
 
-JS часть модуля, по сути является моей вольной переработкой модуля [Scene Tiler](https://github.com/zeel01/scene-tiler/tree/master), за авторством [zeel01](https://zeel01.github.io/).
+JS часть модуля, по сути является моей вольной переработкой модуля [Scene Tiler](https://github.com/zeel01/scene-tiler/tree/master), за авторством [zeel01](https://zeel01.github.io/). Который к сожалению перестал поддерживать его в 2021 году, и соответсвенно он не работает на версиях Foundry выше 11. 
 За перевод Главы 8. Бастионы спасибо сайту [DnDVault](https://dndvault.ru/) !
  
 

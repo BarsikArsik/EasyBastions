@@ -1,0 +1,106 @@
+{
+  "id": "easy-bastion",
+  "type": "module",
+  "title": "EasyBastions",
+  "description": "Tools and UI for managing Bastions in D&D 2024 for Foundry VTT.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": "14",
+    "verified": "14"
+  },
+  "authors": [
+    {
+      "name": "BarsikArsik",
+      "url": "https://my.boosty.ars.com",
+      "flags": {}
+    }
+  ],
+  "flags": {
+    "canUpload": true
+  },
+  "scripts": [
+    "entity-translators.js",
+    "scene-tiler-helpers.js",
+    "scene-tiler.js",
+    "scripts/bastion-sheet.js",
+    "scripts/easy-bastion.js"
+  ],
+  "styles": [
+    "styles/easy-bastion.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [
+    {
+      "name": "bastions-scene",
+      "label": "Модули Бастиона",
+      "path": "packs/bastions-scene",
+      "type": "Scene",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "dnd5e",
+      "flags": {}
+    },
+    {
+      "name": "bastions-merc",
+      "label": "Наемники Бастиона",
+      "path": "packs/bastions-merc",
+      "type": "Actor",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "dnd5e",
+      "flags": {}
+    },
+    {
+      "name": "bastions-roolbook",
+      "label": "Глава 8. Бастионы",
+      "path": "packs/bastions-roolbook",
+      "type": "JournalEntry",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "dnd5e",
+      "flags": {}
+    },
+    {
+      "name": "bastions-table",
+      "label": "Таблицы событий Бастиона",
+      "path": "packs/bastions-table",
+      "type": "RollTable",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "dnd5e",
+      "flags": {}
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "4.0.0"
+        }
+      }
+    ],
+    "requires": []
+  },
+  "manifest": "https://your-domain-or-github/releases/latest/download/module.json",
+  "download": "https://your-domain-or-github/releases/latest/download/easy-bastion.zip",
+  "readme": "README.md",
+  "license": "LICENSE",
+  "url": "https://your-project-page.example",
+  "action": "manageModule"
+}

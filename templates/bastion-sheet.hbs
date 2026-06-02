@@ -1,0 +1,266 @@
+<div class="easy-bastion-app">
+  <div class="bastion-top-grid">
+    <label>
+      <span>Название Бастиона</span>
+      <input
+        type="text"
+        name="bastion-name"
+        value="{{bastionName}}"
+        placeholder="Например, Черный бастион"
+      />
+    </label>
+
+    <label>
+      <span>Уровень бастиона</span>
+      <select name="bastion-level">
+        <option value="1" {{#if (eq level 1)}}selected{{/if}}>1</option>
+        <option value="2" {{#if (eq level 2)}}selected{{/if}}>2</option>
+        <option value="3" {{#if (eq level 3)}}selected{{/if}}>3</option>
+        <option value="4" {{#if (eq level 4)}}selected{{/if}}>4</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="level-banner">
+    <div><strong>Лимит сооружений:</strong> <span>{{levelInfo.slots}}</span></div>
+    <div class="hint">{{levelInfo.text}}</div>
+  </div>
+
+  <div class="owners-toolbar">
+    <div class="counter">Владельцев: <span>{{ownersCount}}</span></div>
+    <div class="toolbar-buttons">
+      <button type="button" class="bastion-open-journal">Открыть журнал</button>
+      <button type="button" class="bastion-add-owner">Добавить владельца</button>
+      <button type="button" class="bastion-save">Сохранить</button>
+    </div>
+  </div>
+
+  <div class="owners-matrix-shell">
+    <div id="owners-container" class="owners-matrix">
+      {{#each owners as |owner ownerIndex|}}
+      <section class="owner-column" data-owner-index="{{ownerIndex}}">
+        <div class="owner-column-header">
+          <div class="owner-title">Владелец {{add ownerIndex 1}}</div>
+          <button
+            type="button"
+            class="bastion-remove-owner"
+            data-owner-index="{{ownerIndex}}"
+          >×</button>
+        </div>
+
+        <label class="owner-name-field">
+          <span>Имя владельца</span>
+          <input
+            type="text"
+            class="owner-name-input"
+            data-owner-index="{{ownerIndex}}"
+            value="{{owner.owner}}"
+            placeholder="Например, Лорд Арден"
+          />
+        </label>
+
+        <label class="owner-maintenance-toggle">
+          <input
+            type="checkbox"
+            class="owner-maintenance-input"
+            data-owner-index="{{ownerIndex}}"
+            {{#if owner.maintenance}}checked{{/if}}
+          />
+          <span>Приказ поддержание</span>
+        </label>
+
+        <div class="owner-buildings-stack">
+          {{#each owner.buildings as |building buildingIndex|}}
+          <div class="building-block {{#if building.orderDisabled}}order-locked{{/if}}">
+            <div class="building-split">
+              <div class="building-main">
+                <div class="grid-head">Сооружение {{add buildingIndex 1}}</div>
+                <select
+                  data-owner-index="{{ownerIndex}}"
+                  data-building-index="{{buildingIndex}}"
+                >
+                  <option value="">— выбрать сооружение —</option>
+                  {{#each @root.specials as |special|}}
+                  <option
+                    value="{{special.name}}"
+                    {{#if (eq special.name building.building)}}selected{{/if}}
+                  >
+                    {{special.name}}
+                  </option>
+                  {{/each}}
+                </select>
+
+                <div class="grid-head">Приказ {{add buildingIndex 1}}</div>
+                <select
+                  data-owner-index="{{ownerIndex}}"
+                  data-order-index="{{buildingIndex}}"
+                  {{#if building.orderDisabled}}disabled{{/if}}
+                >
+                  {{#each building.orderChoices as |choice|}}
+                  <option
+                    value="{{choice.value}}"
+                    {{#if (eq choice.value building.order)}}selected{{/if}}
+                  >
+                    {{choice.label}}
+                  </option>
+                  {{/each}}
+                </select>
+              </div>
+
+              <div class="building-extra">
+                <div class="grid-head">Дополнительно</div>
+
+                {{#if building.isBarracks}}
+                <label class="extra-field">
+                  <span>Защитники бастиона</span>
+                  <input
+                    type="number"
+                    min="0"
+                    max="12"
+                    step="1"
+                    value="{{building.extra.defenders}}"
+                    data-owner-index="{{ownerIndex}}"
+                    data-building-index="{{buildingIndex}}"
+                    data-extra-field="defenders"
+                  />
+                  <span class="hint">От 0 до 12 защитников на каждую Казарму</span>
+                </label>
+                {{else}}
+                  {{#if building.isArsenal}}
+                  <label class="extra-field">
+                    <span>Сколько Защитников бастиона снарядить?</span>
+                    <input
+                      type="number"
+                      min="1"
+                      max="99"
+                      step="1"
+                      value="{{building.extra.armCount}}"
+                      data-owner-index="{{ownerIndex}}"
+                      data-building-index="{{buildingIndex}}"
+                      data-extra-field="armCount"
+                    />
+                    <span class="hint">От 1 до 99 комплектов, 1 комплект = 100 ЗМ</span>
+                  </label>
+
+                  <div class="extra-summary">
+                    <div><strong>Базовая стоимость:</strong> {{building.arsenalCost.baseCost}} ЗМ</div>
+                    <div>
+                      <strong>Кузница в бастионе:</strong>
+                      {{#if building.arsenalCost.hasForge}}Да, стоимость уменьшена вдвое{{else}}Нет{{/if}}
+                    </div>
+                    <div><strong>Итоговая стоимость:</strong> {{building.arsenalCost.finalCost}} ЗМ</div>
+                  </div>
+                  {{else}}
+                    {{#if building.isArcaneStudy}}
+                      {{#if building.showArcaneStudyExtra}}
+                      <label class="extra-field">
+                        <span>Выбери результат приказа</span>
+                        <select
+                          data-owner-index="{{ownerIndex}}"
+                          data-building-index="{{buildingIndex}}"
+                          data-extra-field="itemType"
+                        >
+                          <option
+                            value="Магическая фокусировка"
+                            {{#if (eq building.extra.itemType "Магическая фокусировка")}}selected{{/if}}
+                          >
+                            Магическая фокусировка
+                          </option>
+                          <option
+                            value="Книга"
+                            {{#if (eq building.extra.itemType "Книга")}}selected{{/if}}
+                          >
+                            Книга
+                          </option>
+                          <option
+                            value="Магический предмет"
+                            {{#if (eq building.extra.itemType "Магический предмет")}}selected{{/if}}
+                          >
+                            Магический предмет
+                          </option>
+                        </select>
+                        <span class="hint">Поле доступно только когда выбран приказ.</span>
+                      </label>
+                      {{else}}
+                      <div class="extra-placeholder">
+                        Для Магического кабинета сначала выбери приказ.
+                      </div>
+                      {{/if}}
+                    {{else}}
+                      {{#if building.isGarden}}
+                      <label class="extra-field">
+                        <span>Тип сада</span>
+                        <select
+                          data-owner-index="{{ownerIndex}}"
+                          data-building-index="{{buildingIndex}}"
+                          data-extra-field="gardenType"
+                        >
+                          <option
+                            value="Декоративный"
+                            {{#if (eq building.extra.gardenType "Декоративный")}}selected{{/if}}
+                          >
+                            Декоративный
+                          </option>
+                          <option
+                            value="Лекарственный"
+                            {{#if (eq building.extra.gardenType "Лекарственный")}}selected{{/if}}
+                          >
+                            Лекарственный
+                          </option>
+                          <option
+                            value="Пищевой"
+                            {{#if (eq building.extra.gardenType "Пищевой")}}selected{{/if}}
+                          >
+                            Пищевой
+                          </option>
+                          <option
+                            value="Ядовитый"
+                            {{#if (eq building.extra.gardenType "Ядовитый")}}selected{{/if}}
+                          >
+                            Ядовитый
+                          </option>
+                        </select>
+                        <span class="hint">Выбери специализацию Сада.</span>
+                      </label>
+                      {{else}}
+						{{#if building.isWorkshop}}
+						<div class="extra-field">
+						  <span>Инструменты мастерской</span>
+
+							<div class="workshop-tools-list">
+							  {{#each building.workshopToolChoices as |tool|}}
+							  <label class="workshop-tool-option">
+								<input
+								  type="checkbox"
+								  class="workshop-tool-input"
+								  data-owner-index="{{ownerIndex}}"
+								  data-building-index="{{buildingIndex}}"
+								  value="{{tool.value}}"
+								  {{#if tool.checked}}checked{{/if}}
+								/>
+								<span class="workshop-tool-label">{{tool.label}}</span>
+							  </label>
+							  {{/each}}
+							</div>
+
+						  <span class="hint">Выбери до 6 инструментов для Мастерской.</span>
+						</div>
+						{{else}}
+                        <div class="extra-placeholder">
+                          Для этого сооружения дополнительных параметров пока нет.
+                        </div>
+                        {{/if}}
+                      {{/if}}
+                    {{/if}}
+                  {{/if}}
+                {{/if}}
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
+      </section>
+      {{/each}}
+    </div>
+  </div>
+</div>

@@ -1,8 +1,7 @@
 {
   "id": "easy-bastion",
-  "type": "module",
   "title": "EasyBastions",
-  "description": "Tools and UI for managing Bastions in D&D 2024 for Foundry VTT.",
+  "description": "<p>Tools and UI for managing Bastions in D&amp;D 2024 for Foundry VTT.</p>",
   "version": "0.1.0",
   "compatibility": {
     "minimum": "14",
@@ -11,13 +10,9 @@
   "authors": [
     {
       "name": "BarsikArsik",
-      "url": "https://my.boosty.ars.com",
-      "flags": {}
+      "url": "https://my.boosty.ars.com"
     }
   ],
-  "flags": {
-    "canUpload": true
-  },
   "scripts": [
     "entity-translators.js",
     "scene-tiler-helpers.js",
@@ -30,6 +25,11 @@
   ],
   "languages": [
     {
+      "lang": "ru",
+      "name": "Русский",
+      "path": "lang/ru.json"
+    },
+    {
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
@@ -41,48 +41,61 @@
       "label": "Модули Бастиона",
       "path": "packs/bastions-scene",
       "type": "Scene",
+      "system": "dnd5e",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
-      },
-      "system": "dnd5e",
-      "flags": {}
+      }
     },
     {
       "name": "bastions-merc",
       "label": "Наемники Бастиона",
       "path": "packs/bastions-merc",
       "type": "Actor",
+      "system": "dnd5e",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
-      },
-      "system": "dnd5e",
-      "flags": {}
+      }
     },
     {
       "name": "bastions-roolbook",
       "label": "Глава 8. Бастионы",
       "path": "packs/bastions-roolbook",
       "type": "JournalEntry",
+      "system": "dnd5e",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
-      },
-      "system": "dnd5e",
-      "flags": {}
+      }
     },
     {
       "name": "bastions-table",
       "label": "Таблицы событий Бастиона",
       "path": "packs/bastions-table",
       "type": "RollTable",
+      "system": "dnd5e",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"
-      },
+      }
+    },
+    {
+      "name": "bastions-macros",
+      "label": "Макросы Бастиона",
+      "path": "packs/bastions-macros",
+      "type": "Macro"
+    },
+    {
+      "name": "bastions-items",
+      "label": "Предметы Бастиона",
+      "path": "packs/bastions-items",
+      "type": "Item",
       "system": "dnd5e",
-      "flags": {}
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "relationships": {
@@ -94,14 +107,11 @@
           "minimum": "4.0.0"
         }
       }
-    ],
-    "requires": []
+    ]
   },
   "manifest": "https://github.com/BarsikArsik/EasyBastions/releases/latest/download/module.json",
   "download": "https://github.com/BarsikArsik/EasyBastions/releases/latest/download/easy-bastion.zip",
-  "url": "https://github.com/BarsikArsik/EasyBastions",
   "readme": "https://github.com/BarsikArsik/EasyBastions/blob/main/README.md",
   "license": "https://github.com/BarsikArsik/EasyBastions/blob/main/LICENSE",
-  "url": "https://your-project-page.example",
-  "action": "manageModule"
+  "url": "https://github.com/BarsikArsik/EasyBastions"
 }

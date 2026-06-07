@@ -14,7 +14,7 @@ A module for Foundry VTT that allows you to build a bastion in DND2024 using a n
 **NB! В Foundry V14 изменилась логика работы с объектами, поэтому чтобы разблокировать тайл вам надо  в правой части экрана найти раздел объекты, выбрать там нужный тайл и разблокировать его. (кнопка Alt подсветит все тайлы на сцене)**
 
 <p align="center">
-  <a href="https://youtu.be/9ORANng4yuw">
+  <a href="https://youtu.be/9ORANng4yuw?si=2L9HLKUbkbVXotc6">
     <img src="./assets/thumbnail.png" alt="Видео‑демо" width="600">
   </a>
 </p>
